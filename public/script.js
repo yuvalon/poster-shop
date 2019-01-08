@@ -42,7 +42,6 @@ new Vue({
                 })
             }
 
-            alert("moshe");
         }
     },
     filters: {
