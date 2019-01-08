@@ -19,6 +19,10 @@
     <div id="app">
         <div class="header">
             <h1>Vue.js Poster Store</h1>
+            <form class="searchbar" v-on:submit.prevent="onSubmit">
+                <input placeholder="text here" v-model="search">
+                <input type="submit" value="search" class="btn">
+            </form>
         </div>
         <div class="main">
             <div class="products">
@@ -54,6 +58,7 @@
     <!-- Scripts -->
     <script src="/reload/reload.js"></script>
     <script src="node_modules/vue/dist/vue.js"></script>
+    <script src="node_modules/vue-resource/dist/vue-resource.js"></script>
     <script type="text/javascript" src="public/script.js"></script>
 
 </body>
