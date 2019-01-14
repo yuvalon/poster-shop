@@ -1,2 +1,4 @@
 1. best way to do http requests : vue-resource vs axios?
+2. use v-bind:key whenever possible in for loops.
+3. transition-group vs transition. use group when applying transitions for lists for example, or any multiple things.
 

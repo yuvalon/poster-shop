@@ -8,9 +8,9 @@ var querystring = require('querystring');
 require('dotenv').config();
 
 var bodyParser = require('body-parser');
-app.use( bodyParser.json() );
+app.use(bodyParser.json());
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
 });
 
@@ -19,7 +19,7 @@ var instance = axios.create({
   headers: { 'Authorization': 'Client-ID ' + process.env.IMGUR_CLIENT_ID }
 });
 
-app.get('/search/:query', function(req, res) {
+app.get('/search/:query', function (req, res) {
   const url = 'gallery/search/top/0/?' + querystring.stringify({ q: req.params.query });
   instance.get(url)
     .then(function (result) {
@@ -28,7 +28,7 @@ app.get('/search/:query', function(req, res) {
     .catch(function (error) {
       console.log(error);
     })
-  ;
+    ;
 });
 
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
