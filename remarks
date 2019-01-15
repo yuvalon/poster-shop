@@ -1,4 +1,6 @@
 1. best way to do http requests : vue-resource vs axios?
 2. use v-bind:key whenever possible in for loops.
 3. transition-group vs transition. use group when applying transitions for lists for example, or any multiple things.
-
+4. scroll monitor for inifinte scrolling
+5. methods are not reactive by default, which means, if one of the variables the function uses changes, it won't change the thing that depends on this function. unlike computed property.
+6.

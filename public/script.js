@@ -1,3 +1,5 @@
+var PRICE = 9.99;
+var LIMIT = 5;
 new Vue({
     el: '#app',
     data: {
@@ -7,9 +9,25 @@ new Vue({
         newSearch: 'anime',
         lastSearch: '',
         loading: false,
-        price : 9.99
+        price: PRICE,
+        results =[]
+    },
+    computed:{
+
+        noMoreValues:function(){
+            return (this.items.length === this.results.length) && (this.items.length > 0);
+        }
+
     },
     methods: {
+
+        appendItems: function () {
+            if (this.items.length < this.results.length){
+                let newItems = this.results.slice(this.items.length, this.items.length + LIMIT);
+                this.items = this.items.concat(newItems);
+            }
+            console.log('append items');
+        },
         onSubmit: function () {
 
             this.items = [];
@@ -18,12 +36,13 @@ new Vue({
                 .get('search/'.concat(this.newSearch))
                 .then(function (res) {
                     this.lastSearch = this.newSearch;
-                    this.items = res.data;
+                    this.results = res.data;
+                    this.appendItems();
                     this.loading = false;
                 })
         },
         addItem: function (index) {
-            this.total += this.price
+            this.total += PRICE
             let found = false;
             for (var i = 0; i < this.cart.length; i++) {
                 if (this.cart[i].id === this.items[index].id) {
@@ -35,7 +54,7 @@ new Vue({
             if (found) {
                 return;
             }
-            this.cart.push({ title: this.items[index].title, qty: 1, id: this.items[index].id, price: this.price });
+            this.cart.push({ title: this.items[index].title, qty: 1, id: this.items[index].id, price: PRICE });
         },
         inc: function (item) {
             item.qty++;
@@ -62,7 +81,15 @@ new Vue({
         }
     },
 
-    mounted :function() {
+    mounted: function () {
         this.onSubmit();
+        let vueInstance = this;
+        let elem = document.getElementById('product-list-bottom');
+        let watcher = scrollMonitor(elem);
+        watcher.enterViewpoint(function () {
+            vueInstance.appendItems();
+        });
     }
 })
+
+
