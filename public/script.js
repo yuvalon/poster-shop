@@ -1,5 +1,5 @@
-var PRICE = 9.99;
-var LIMIT = 5;
+const PRICE = 9.99;
+const LIMIT = 10;
 new Vue({
     el: '#app',
     data: {
@@ -10,7 +10,7 @@ new Vue({
         lastSearch: '',
         loading: false,
         price: PRICE,
-        results =[]
+        results : []
     },
     computed:{
 
@@ -23,10 +23,11 @@ new Vue({
 
         appendItems: function () {
             if (this.items.length < this.results.length){
+            console.log('append items');
+
                 let newItems = this.results.slice(this.items.length, this.items.length + LIMIT);
                 this.items = this.items.concat(newItems);
             }
-            console.log('append items');
         },
         onSubmit: function () {
 
@@ -85,8 +86,8 @@ new Vue({
         this.onSubmit();
         let vueInstance = this;
         let elem = document.getElementById('product-list-bottom');
-        let watcher = scrollMonitor(elem);
-        watcher.enterViewpoint(function () {
+        let watcher = scrollMonitor.create(elem);
+        watcher.enterViewport(function () {
             vueInstance.appendItems();
         });
     }
